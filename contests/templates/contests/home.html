@@ -1,0 +1,120 @@
+{% extends "contests/base.html" %}
+{% load staticfiles %}
+{% block title %}Home{% endblock %}
+{% block javascript %}
+$(document).ready(function(){
+$('.modal-trigger').leanModal();
+Materialize.toast('{{ toast_message }}', 30000,'rounded');
+});
+
+{% endblock %}
+{% block content %}
+<div class="container" style="margin-top:20px">
+	<div class="row">
+		<div class="col s12">
+			<ul class="tabs">
+				<li class="tab col s6"><a href="#past">Past Contests</a></li>
+				<li class="tab col s6"><a class="active" href="#ongoing">Ongoing Contests</a></li>
+				<li class="tab col s6"><a href="#upcoming">Upcoming Contests</a></li>
+			</ul>		
+		</div>
+	</div>
+	<div id="past" class="table-responsive">
+		{% if past_contests %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-field="name">Contest Name</th>
+						<th data-field="platform">Platform</th>
+						<th data-field="duration">Duration</th>							
+						<th data-field="contest_start_time">Start Time</th>
+						<th data-field="contest_end_time">End Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for contest in past_contests %}
+					<tr>
+						<td>
+							<a href="{{ contest.event_link }}">{{ contest.event }}</a>
+						</td>
+						<td>
+							<a href="http://{{ contest.platform.link }}/">{{ contest.platform.name }}</a>
+						</td>
+						<td>{{ contest.duration	}}</td>
+				 		<td>{{ contest.start_time|date:"M d Y, H:i" }}</td>
+				 		<td>{{ contest.end_time|date:"M d Y, H:i" }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<b>No past contests are available</b> 
+		{% endif %}
+	</div>
+	<div id="ongoing" class="table-responsive">
+		{% if ongoing_contests %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-field="name">Contest Name</th>
+						<th data-field="platform">Platform</th>
+						<th data-field="duration">Duration</th>							
+						<th data-field="contest_start_time">Start Time</th>
+						<th data-field="contest_end_time">End Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for contest in ongoing_contests %}
+					<tr>
+						<td>
+							<a href="{{ contest.event_link }}">{{ contest.event }}</a>
+						</td>
+						<td>
+							<a href="http://{{ contest.platform.link }}/">{{ contest.platform.name }}</a>
+						</td>
+						<td>{{ contest.duration	}}</td>
+				 		<td>{{ contest.start_time|date:"M d Y, H:i" }}</td>
+				 		<td>{{ contest.end_time|date:"M d Y, H:i" }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<b>No ongoing contests are available</b> 
+		{% endif %}
+	</div>
+	<div id="upcoming" class="table-responsive">
+		{% if upcoming_contests %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-field="name">Contest Name</th>
+						<th data-field="platform">Platform</th>
+						<th data-field="duration">Duration</th>							
+						<th data-field="contest_start_time">Start Time</th>
+						<th data-field="contest_end_time">End Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for contest in upcoming_contests %}
+					<tr>
+						<td>
+							<a href="{{ contest.event_link }}">{{ contest.event }}</a>
+						</td>
+						<td>
+							<a href="http://{{ contest.platform.link }}/">{{ contest.platform.name }}</a>
+						</td>
+						<td>{{ contest.duration	}}</td>
+				 		<td>{{ contest.start_time|date:"M d Y, H:i" }}</td>
+				 		<td>{{ contest.end_time|date:"M d Y, H:i" }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<b>No upcoming contests are available</b> 
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}
